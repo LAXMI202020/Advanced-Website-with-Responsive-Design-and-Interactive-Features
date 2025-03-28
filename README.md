@@ -1,6 +1,8 @@
 # Advanced-Website-with-Responsive-Design-and-Interactive-Features
-This project is a modern, responsive website that incorporates several advanced features. It includes a simple navigation bar, a fully functional image carousel, a contact form with validation, and a sleek, user-friendly design. The website is built using HTML, CSS, and JavaScript to ensure that it is both visually appealing and interactive.
+DISCRIPTION :This project is a modern, responsive website that incorporates several advanced features. It includes a simple navigation bar, a fully functional image carousel, a contact form with validation, and a sleek, user-friendly design. The website is built using HTML, CSS, and JavaScript to ensure that it is both visually appealing and interactive.
 HOST A WEBSITE FOR FREE USING AWS
+
+STEPS:
 Step 1: Launch an EC2 Instance
 1.	Log into AWS Management Console: Go to AWS Management Console and log in.
 2.	Create EC2 Instance:
@@ -16,6 +18,7 @@ o	Configure Security Group:
 3.	Review and Launch: Review your instance settings and launch it.
 o	Download the key pair .pem file if you don’t have one, as you’ll use this to SSH into the instance.
 4.	Get Public IP: Once the instance is running, find its Public IP in the EC2 dashboard. This will be used to access your website.
+   
 Step 2: SSH into the EC2 Instance
 1.	Open a terminal on your local machine.
 2.	Change the directory to where your .pem file is located.
@@ -42,7 +45,8 @@ sudo apt update
 sudo apt install apache2 -y
 sudo systemctl start apache2
 sudo systemctl enable apache2
-2.	Verify Apache Installation: Visit http://your-public-ip in your browser. If Apache is installed correctly, you should see the Apache test page.
+
+3.	Verify Apache Installation: Visit http://your-public-ip in your browser. If Apache is installed correctly, you should see the Apache test page.
 For Nginx:
 1.	Install Nginx:
 o	For Amazon Linux 2:
@@ -58,7 +62,8 @@ sudo apt update
 sudo apt install nginx -y
 sudo systemctl start nginx
 sudo systemctl enable nginx
-2.	Verify Nginx Installation: Visit http://your-public-ip in your browser. If Nginx is installed correctly, you should see the Nginx welcome page.
+
+3.	Verify Nginx Installation: Visit http://your-public-ip in your browser. If Nginx is installed correctly, you should see the Nginx welcome page.
 CODE OF MY STATIC WEBSITE(index.html):
 <!DOCTYPE html>
 <html lang="en">
@@ -139,6 +144,7 @@ CODE OF MY STATIC WEBSITE(index.html):
   </footer>
 </body>
 </html>
+
 
 CSS (styles.css)
 
