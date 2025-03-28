@@ -1,0 +1,2 @@
+# Advanced-Website-with-Responsive-Design-and-Interactive-Features
+This project is a modern, responsive website that incorporates several advanced features. It includes a simple navigation bar, a fully functional image carousel, a contact form with validation, and a sleek, user-friendly design. The website is built using HTML, CSS, and JavaScript to ensure that it is both visually appealing and interactive.
