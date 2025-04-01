@@ -1,69 +1,197 @@
-# Advanced-Website-with-Responsive-Design-and-Interactive-Features
-DISCRIPTION :This project is a modern, responsive website that incorporates several advanced features. It includes a simple navigation bar, a fully functional image carousel, a contact form with validation, and a sleek, user-friendly design. The website is built using HTML, CSS, and JavaScript to ensure that it is both visually appealing and interactive.
-HOST A WEBSITE FOR FREE USING AWS
-
 STEPS:
-Step 1: Launch an EC2 Instance
-1.	Log into AWS Management Console: Go to AWS Management Console and log in.
-2.	Create EC2 Instance:
-o	Go to the EC2 Dashboard.
-o	Click Launch Instance.
-o	Select an AMI (Amazon Machine Image). For example, choose Amazon Linux 2 AMI or Ubuntu.
-o	Choose an Instance Type (e.g., t2.micro for free-tier eligible).
-o	Configure instance details (keep default settings unless you need to customize).
-o	Add storage if necessary.
-o	Configure Security Group:
-	Open ports 22 (SSH), 80 (HTTP), and 443 (HTTPS).
-	For SSH, restrict access to your IP (for security reasons).
-3.	Review and Launch: Review your instance settings and launch it.
-o	Download the key pair .pem file if you don’t have one, as you’ll use this to SSH into the instance.
-4.	Get Public IP: Once the instance is running, find its Public IP in the EC2 dashboard. This will be used to access your website.
-   
-Step 2: SSH into the EC2 Instance
-1.	Open a terminal on your local machine.
-2.	Change the directory to where your .pem file is located.
-3.	Use the following command to SSH into your instance:
-bash
-Copy
-ssh -i "your-key.pem" ec2-user@your-public-ip
-Replace your-key.pem with the actual key name and your-public-ip with your EC2 instance's public IP.
+Step 1: Create an AWS Free Tier Account
+Go to AWS Sign Up
 
-Step 3: Install Apache or Nginx
-For Apache:
-1.	Install Apache: For Amazon Linux 2 or Ubuntu, you can install Apache using the following commands:
-o	For Amazon Linux 2:
-bash
+Register with your email and complete identity verification.
+
+AWS Free Tier provides 750 hours per month of EC2 usage for free.
+
+Step 2: Launch an EC2 Instance
+Login to AWS Console.
+
+Open EC2 Dashboard.
+
+Click Launch Instance.
+
+Set up:
+
+Name: Advanced-Website-Server
+
+AMI (OS): Choose Ubuntu 22.04 LTS (recommended) or Amazon Linux 2.
+
+Instance Type: Select t2.micro (Free Tier eligible).
+
+Key Pair: Create or select an existing key pair (to SSH into the server).
+
+Security Group:
+
+Allow HTTP (port 80)
+
+Allow SSH (port 22) (for access)
+
+Storage: Default 8GB is enough.
+
+Click Launch Instance and wait for it to initialize.
+
+Step 3: Connect to EC2 Instance via SSH
+Open a terminal and run:
+
+sh
 Copy
-sudo yum update -y
-sudo yum install httpd -y
-sudo systemctl start httpd
-sudo systemctl enable httpd
-o	For Ubuntu:
-bash
+Edit
+ssh -i your-key.pem ubuntu@your-ec2-public-ip
+Replace your-key.pem with your private key file and your-ec2-public-ip with the instance's public IP.
+
+After logging in, update the server:
+
+sh
 Copy
-sudo apt update
+Edit
+sudo apt update && sudo apt upgrade -y
+Step 4: Install and Configure NGINX or Apache HTTPD
+Option 1: Install NGINX (Recommended)
+Install NGINX:
+
+sh
+Copy
+Edit
+sudo apt install nginx -y
+Start and enable NGINX:
+
+sh
+Copy
+Edit
+sudo systemctl start nginx
+sudo systemctl enable nginx
+Check if it's running:
+
+sh
+Copy
+Edit
+systemctl status nginx
+Open your browser and visit http://your-ec2-public-ip – You should see the NGINX default page.
+
+Option 2: Install Apache HTTPD
+Install Apache:
+
+sh
+Copy
+Edit
 sudo apt install apache2 -y
+Start and enable Apache:
+
+sh
+Copy
+Edit
 sudo systemctl start apache2
 sudo systemctl enable apache2
+Check status:
 
-3.	Verify Apache Installation: Visit http://your-public-ip in your browser. If Apache is installed correctly, you should see the Apache test page.
-For Nginx:
-1.	Install Nginx:
-o	For Amazon Linux 2:
-bash
+sh
 Copy
-sudo amazon-linux-extras install nginx1 -y
-sudo systemctl start nginx
-sudo systemctl enable nginx
-o	For Ubuntu:
-bash
-Copy
-sudo apt update
-sudo apt install nginx -y
-sudo systemctl start nginx
-sudo systemctl enable nginx
+Edit
+systemctl status apache2
+Open http://your-ec2-public-ip in a browser. The Apache default page should appear.
 
-3.	Verify Nginx Installation: Visit http://your-public-ip in your browser. If Nginx is installed correctly, you should see the Nginx welcome page.
+Step 5: Deploy Your Website
+Move Your Website Files
+Navigate to the web root directory:
+
+For NGINX:
+
+sh
+Copy
+Edit
+cd /var/www/html
+For Apache HTTPD:
+
+sh
+Copy
+Edit
+cd /var/www/html
+Upload your website files from your local machine to EC2 using SCP:
+
+sh
+Copy
+Edit
+scp -i your-key.pem -r /path/to/your/website ubuntu@your-ec2-public-ip:/var/www/html/
+Replace /path/to/your/website with your actual project folder.
+
+Set permissions:
+
+sh
+Copy
+Edit
+sudo chown -R www-data:www-data /var/www/html
+sudo chmod -R 755 /var/www/html
+Step 6: Configure NGINX or Apache
+NGINX Configuration
+Open the configuration file:
+
+sh
+Copy
+Edit
+sudo nano /etc/nginx/sites-available/default
+Replace existing content with:
+
+nginx
+Copy
+Edit
+server {
+    listen 80;
+    server_name your-ec2-public-ip;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+Save (CTRL + X, Y, Enter).
+
+Restart NGINX:
+
+sh
+Copy
+Edit
+sudo systemctl restart nginx
+Apache HTTPD Configuration
+Open Apache config file:
+
+sh
+Copy
+Edit
+sudo nano /etc/apache2/sites-available/000-default.conf
+Update:
+
+apache
+Copy
+Edit
+<VirtualHost *:80>
+    DocumentRoot /var/www/html
+    <Directory /var/www/html>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+Save (CTRL + X, Y, Enter).
+
+Restart Apache:
+
+sh
+Copy
+Edit
+sudo systemctl restart apache2
+Step 7: Access Your Website
+Open http://your-ec2-public-ip in your browser.
+
+Your Advanced Website should be live! 🚀
+
+
+
+
+
 CODE OF MY STATIC WEBSITE(index.html):
 <!DOCTYPE html>
 <html lang="en">
